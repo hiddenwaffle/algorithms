@@ -1,0 +1,2 @@
+Amazon store page images, scaled to 192px width each:
+- book1.jpg
