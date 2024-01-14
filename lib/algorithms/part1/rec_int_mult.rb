@@ -2,7 +2,7 @@
 
 class Algorithms::RecIntMult
   def rec_int_mult(x_int, y_int)
-    absolute = rec_int_mult_loop(x_int.abs.to_s, y_int.abs.to_s).to_i
+    absolute = rec_int_mult_loop(*pad(x_int.abs, y_int.abs)).to_i
     # Account for negative
     (x_int < 0) ^ (y_int < 0) ? absolute * -1 : absolute
   end
@@ -40,5 +40,19 @@ class Algorithms::RecIntMult
       n += 1
     end
     n
+  end
+
+  # The numbers need to be strings that are the same length,
+  # and the length must be a power of 2.
+  # @param [Integer] n
+  # @return [String]
+  def pad(x, y)
+    x_str = x.to_s
+    y_str = y.to_s
+    x_len = x_str.length
+    y_len = y_str.length
+    length = x_len > y_len ? x_len : y_len
+    pad_amount = next_pow2(length)
+    [x_str.rjust(pad_amount, '0'), y_str.rjust(pad_amount, '0')]
   end
 end

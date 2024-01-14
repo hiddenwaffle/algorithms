@@ -11,6 +11,7 @@ class TestRecIntMult < Minitest::Test
     assert_equal 2, @subject.rec_int_mult(1, 2)
     assert_equal 2, @subject.rec_int_mult(2, 1)
     assert_equal 330, @subject.rec_int_mult(10, 33)
+    assert_equal 33330, @subject.rec_int_mult(10, 3333)
     assert_equal 7_006_652, @subject.rec_int_mult(1234, 5678)
     assert_equal -7_006_652, @subject.rec_int_mult(-1234, 5678)
   end

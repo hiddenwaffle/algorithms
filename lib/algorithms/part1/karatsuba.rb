@@ -2,7 +2,7 @@
 
 class Algorithms::Karatsuba
   def karatsuba(x_int, y_int)
-    absolute = karatsuba_loop(x_int.abs.to_s, y_int.abs.to_s).to_i
+    absolute = karatsuba_loop(*pad(x_int.abs, y_int.abs)).to_i
     # Account for negative
     (x_int < 0) ^ (y_int < 0) ? absolute * -1 : absolute
   end
@@ -28,6 +28,18 @@ class Algorithms::Karatsuba
     pq = karatsuba_loop(p, q)
     # <-- Notice that there is one fewer recursive call than RecIntMult
     adbc = pq.to_i - ac.to_i - bd.to_i
+    puts "---"
+    puts "x: #{x}"
+    puts "y: #{y}"
+    puts "length: #{length}"
+    puts "breakpoint: #{breakpoint}"
+    puts "a: #{a}"
+    puts "b: #{b}"
+    puts "c: #{c}"
+    puts "d: #{d}"
+    puts "ac: #{ac}"
+    puts "bd: #{bd}"
+    puts "pq: #{pq}"
     10**length * ac.to_i + 10**(length/2) * adbc + bd.to_i
   end
 
@@ -43,5 +55,19 @@ class Algorithms::Karatsuba
       n += 1
     end
     n
+  end
+
+  # The numbers need to be strings that are the same length,
+  # and the length must be a power of 2.
+  # @param [Integer] n
+  # @return [String]
+  def pad(x, y)
+    x_str = x.to_s
+    y_str = y.to_s
+    x_len = x_str.length
+    y_len = y_str.length
+    length = x_len > y_len ? x_len : y_len
+    pad_amount = next_pow2(length)
+    [x_str.rjust(pad_amount, '0'), y_str.rjust(pad_amount, '0')]
   end
 end

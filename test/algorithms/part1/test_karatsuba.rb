@@ -11,6 +11,8 @@ class TestKaratsuba < Minitest::Test
     assert_equal 2, @subject.karatsuba(1, 2)
     assert_equal 2, @subject.karatsuba(2, 1)
     assert_equal 330, @subject.karatsuba(10, 33)
+    binding.pry
+    assert_equal 33330, @subject.karatsuba(10, 3333)
     assert_equal "7_006_652", @subject.karatsuba(1234, 5678)
     assert_equal "-7_006_652", @subject.karatsuba(-1234, 5678)
   end
