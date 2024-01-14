@@ -2,7 +2,8 @@
 
 class Algorithms::MergeSort
   def merge_sort(arr)
-    # Base case
+    # Base cases
+    return arr if arr.empty?
     return arr if arr.length == 1
     midpoint = arr.length / 2
     c = merge_sort(arr[..midpoint-1])
@@ -16,9 +17,9 @@ class Algorithms::MergeSort
     arr = []
     until left.empty? || right.empty?
       if left[0] < right[0]
-        arr.push(left.pop)
+        arr.push(left.shift)
       else
-        arr.push(right.pop)
+        arr.push(right.shift)
       end
     end
     arr.concat(left)
