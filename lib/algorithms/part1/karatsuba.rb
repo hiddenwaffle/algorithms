@@ -24,23 +24,27 @@ class Algorithms::Karatsuba
     p = (a.to_i + b.to_i).to_s
     q = (c.to_i + d.to_i).to_s
     ac = karatsuba_loop(a, c)
+    ad = karatsuba_loop(a, d)
+    bc = karatsuba_loop(b, c)
     bd = karatsuba_loop(b, d)
-    pq = karatsuba_loop(p, q)
+    10**length * ac.to_i + 10**(length/2) * (ad.to_i + bc.to_i) + bd.to_i
+    # pq = karatsuba_loop(p, q)
     # <-- Notice that there is one fewer recursive call than RecIntMult
-    adbc = pq.to_i - ac.to_i - bd.to_i
-    puts "---"
-    puts "x: #{x}"
-    puts "y: #{y}"
-    puts "length: #{length}"
-    puts "breakpoint: #{breakpoint}"
-    puts "a: #{a}"
-    puts "b: #{b}"
-    puts "c: #{c}"
-    puts "d: #{d}"
-    puts "ac: #{ac}"
-    puts "bd: #{bd}"
-    puts "pq: #{pq}"
-    10**length * ac.to_i + 10**(length/2) * adbc + bd.to_i
+    # adbc = pq.to_i - ac.to_i - bd.to_i
+    # puts "---"
+    # puts "x: #{x}"
+    # puts "y: #{y}"
+    # puts "length: #{length}"
+    # puts "breakpoint: #{breakpoint}"
+    # puts "a: #{a}"
+    # puts "b: #{b}"
+    # puts "c: #{c}"
+    # puts "d: #{d}"
+    # puts "ac: #{ac}"
+    # puts "bd: #{bd}"
+    # puts "pq: #{pq}"
+    # puts "adbc: #{adbc}"
+    # 10**length * ac.to_i + 10**(length/2) * adbc + bd.to_i
   end
 
   # Determine if the given number if a power of 2
