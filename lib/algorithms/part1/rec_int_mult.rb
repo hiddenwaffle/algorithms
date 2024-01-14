@@ -2,7 +2,9 @@
 
 class Algorithms::RecIntMult
   def rec_int_mult(x_int, y_int)
-    rec_int_mult_loop(x_int.to_s, y_int.to_s)
+    absolute = rec_int_mult_loop(x_int.abs.to_s, y_int.abs.to_s).to_i
+    # Account for negative
+    (x_int < 0) ^ (y_int < 0) ? absolute * -1 : absolute
   end
 
   private

@@ -7,11 +7,11 @@ class TestRecIntMult < Minitest::Test
   end
 
   def test_rect_int_mult
-    assert @subject.rec_int_mult(0, 0), 0
-    assert @subject.rec_int_mult(1, 2), 2
-    assert @subject.rec_int_mult(2, 1), 2
-    assert @subject.rec_int_mult(10, 33), 330
-    assert @subject.rec_int_mult(1234, 5678), 7_006_652
-    assert @subject.rec_int_mult(-1234, 5678), -7_006_652
+    assert_equal 0, @subject.rec_int_mult(0, 0)
+    assert_equal 2, @subject.rec_int_mult(1, 2)
+    assert_equal 2, @subject.rec_int_mult(2, 1)
+    assert_equal 330, @subject.rec_int_mult(10, 33)
+    assert_equal 7_006_652, @subject.rec_int_mult(1234, 5678)
+    assert_equal -7_006_652, @subject.rec_int_mult(-1234, 5678)
   end
 end

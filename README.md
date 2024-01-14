@@ -7,7 +7,7 @@ Self-study implementations from the book series _Algorithms Illuminated_ by Tim 
 # Usage
 
 ```bash
-rake test
-rake test TEST=test/algorithms/part1/test_rec_int_mult.rb
-rake test TEST=test/algorithms/part1/test_rec_int_mult.rb TESTOPS="--name=test_rect_int_mult"
+bundle exec rake test
+bundle exec rake test TEST=test/algorithms/part1/test_rec_int_mult.rb
+bundle exec rake test TEST=test/algorithms/part1/test_rec_int_mult.rb TESTOPS="--name=test_rect_int_mult"
 ```

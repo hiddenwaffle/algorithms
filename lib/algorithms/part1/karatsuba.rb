@@ -2,14 +2,16 @@
 
 class Algorithms::Karatsuba
   def karatsuba(x_int, y_int)
-    karatsuba_loop(x_int.to_s, y_int.to_s)
+    absolute = karatsuba_loop(x_int.abs.to_s, y_int.abs.to_s).to_i
+    # Account for negative
+    (x_int < 0) ^ (y_int < 0) ? absolute * -1 : absolute
   end
 
   private
 
   # @param [x] String
   # @param [y] String
-  # @return [Integer]
+  # @return [String]
   def karatsuba_loop(x, y)
     length = x.length # Assumes that x and y are the same length
     # Base case
