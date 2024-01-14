@@ -1,4 +1,4 @@
-# algorithms
+# Algorithms
 
 Self-study implementations from the book series _Algorithms Illuminated_ by Tim Roughgarden
 
