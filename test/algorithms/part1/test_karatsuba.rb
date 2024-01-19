@@ -13,7 +13,7 @@ class TestKaratsuba < Minitest::Test
     assert_equal 330, @subject.karatsuba(10, 33)
     assert_equal 1000, @subject.karatsuba(10, 100)
     assert_equal 7_006_652, @subject.karatsuba(1234, 5678)
-    assert_equal -7_006_652, @subject.karatsuba(-1234, 5678)
+    assert_equal (-7_006_652), @subject.karatsuba(-1234, 5678)
     # Challenge problem from the website
     assert_equal 853973422267356706546355086954657447066477805411654748981814531384238681327848992425532501942675408,
                 @subject.karatsuba(
