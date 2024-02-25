@@ -3,6 +3,9 @@
 Self-study implementations from the book series _Algorithms Illuminated_ by Tim Roughgarden
 
 ![book1](./lib/book1.jpg)
+![book2](./lib/book2.jpg)
+![book3](./lib/book3.jpg)
+![book4](./lib/book4.jpg)
 
 # Usage
 
