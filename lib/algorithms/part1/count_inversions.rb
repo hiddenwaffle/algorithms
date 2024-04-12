@@ -19,7 +19,8 @@ class Algorithms::CountInversions
 
   private
 
-  def merge_and_count_split_inv(left, right)    arr = []
+  def merge_and_count_split_inv(left, right)
+    arr = []
     i = 1
     j = 1
     n = left.size + right.size
