@@ -37,24 +37,6 @@ class Algorithms::CountInversions
     arr.concat(left)
     arr.concat(right)
     [arr, split_inv]
-    # n = left.size + right.size
-    # i = 0
-    # j = 0
-    # split_inv = 0
-    # sorted = []
-    # n.times do
-    #   left_el = left[i]
-    #   right_el = right[i]
-    #   if left[i] && left[i] < right[j]
-    #     sorted << left[i]
-    #     i += 1
-    #   else
-    #     sorted << right[j]
-    #     j += 1
-    #     split_inv += (n/2) - i + 1
-    #   end
-    # end
-    # [sorted, split_inv]
   end
 
   # https://stackoverflow.com/a/600306
