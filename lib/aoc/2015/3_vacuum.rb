@@ -6,4 +6,3 @@ class AoC::AoC_2015
 end
 
 AoC::AoC_2015.new.day_3
-
