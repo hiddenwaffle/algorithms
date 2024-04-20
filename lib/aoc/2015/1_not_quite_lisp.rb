@@ -1,7 +1,7 @@
 require_relative '../aoc_2015'
 
-module AoC::AoC_2015
-  def self.day_1
+class AoC::AoC_2015
+  def day_1
     # Up = '('
     # Down = ')'
 
@@ -33,4 +33,4 @@ module AoC::AoC_2015
   end
 end
 
-AoC::AoC_2015.day_1
+AoC::AoC_2015.new.day_1
