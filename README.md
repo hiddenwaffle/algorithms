@@ -1,6 +1,6 @@
-# Algorithms N' Such
+# Algorithms n' Such
 
-* Advent of Code solutions
+* [Advent of Code](https://adventofcode.com/) solutions
 * Self-study implementations from the book series _Algorithms Illuminated_ by Tim Roughgarden
 
 ![book1](./lib/book1.jpg)
