@@ -12,7 +12,7 @@ require_relative '../aoc_2015'
 #   1x1x10  requires  1+1+1+1=4 + 1*1*10=10 ====== 14
 class AoC::AoC_2015
   def day_2_part_2
-    input = File.read "#{__dir__}/2_no_math.txt"
+    input = File.read "#{__dir__}/2_no_math.input"
     total_ribbon_len = 0
     input.lines do |line|
       l, w, h = line.split('x')

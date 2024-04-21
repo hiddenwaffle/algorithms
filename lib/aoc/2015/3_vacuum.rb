@@ -2,7 +2,7 @@ require_relative '../aoc_2015'
 
 class AoC::AoC_2015
   def day_3
-    input = File.read(__dir__ + '/3_vacuum.txt')
+    input = File.read(__dir__ + '/3_vacuum.input')
     x = 0
     y = 0
     houses = ['0x0']

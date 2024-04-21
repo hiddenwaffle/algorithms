@@ -2,7 +2,7 @@ require_relative '../aoc_2015'
 
 class AoC::AoC_2015
   def day_2
-    input = File.read "#{__dir__}/2_no_math.txt"
+    input = File.read "#{__dir__}/2_no_math.input"
     total_sa = 0
     input.lines do |line|
       l, w, h = line.split('x')
