@@ -2,7 +2,7 @@
 
 class Algorithms::MatrixMult
   def matrix_mult(a, b)
-    c = Array.new(a.size, a.size)
+    c = Array.new(a.size) { Array.new(a.size) { 0 } }
     # require 'pry'; binding.pry
   end
 end
