@@ -1,10 +1,14 @@
 # Straightforward Matrix Multiplication, pg 74
 
-require 'matrix'
-
 class Algorithms::MatrixMult
   def matrix_mult(a, b)
-    z = Matrix.zero(a.size)
+    z = create_matrix(a.size)
     require 'pry'; binding.pry
+  end
+
+  private
+
+  def create_matrix(size)
+    Array.new(size) { Array.new(size )}
   end
 end
