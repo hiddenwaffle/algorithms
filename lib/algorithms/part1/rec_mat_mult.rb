@@ -2,6 +2,8 @@
 
 class Algorithms::RecMatMult
   def rec_mat_mult(x, y)
+    raise 'wtf' if x.size != y.size
+    raise 'wtf' if x.size.odd?
     require 'pry'; binding.pry
   end
 
