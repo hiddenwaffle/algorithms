@@ -3,8 +3,9 @@
 class Algorithms::RecMatMult
   def rec_mat_mult(x, y)
     raise 'wtf' if x.size != y.size
+    size = x.size
+    return [x[0][0] * y[0][0]] if size == 1
     raise 'wtf' unless is_pow2(x.size)
-
     require 'pry'; binding.pry
   end
 
@@ -27,6 +28,9 @@ class Algorithms::RecMatMult
       arr << m[row][col]
     end
     arr
+  end
+
+  def extract_submatrix(m, row, col, size)
   end
 
   def dot(a, b)
