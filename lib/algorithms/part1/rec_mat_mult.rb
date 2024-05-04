@@ -3,11 +3,18 @@
 class Algorithms::RecMatMult
   def rec_mat_mult(x, y)
     raise 'wtf' if x.size != y.size
-    raise 'wtf' if x.size.odd?
+    raise 'wtf' unless is_pow2(x.size)
+
     require 'pry'; binding.pry
   end
 
   private
+
+  # Determine if the given number if a power of 2
+  # https://stackoverflow.com/a/600306
+  def is_pow2(n)
+    (n & (n - 1)) == 0
+  end
 
   def create_matrix(size)
     Array.new(size) { Array.new(size)}
