@@ -6,6 +6,16 @@ class Algorithms::RecMatMult
     size = x.size
     return [x[0][0] * y[0][0]] if size == 1
     raise 'wtf' unless is_pow2(x.size)
+    half_size = size / 2
+    a = extract_submatrix(x, 0, 0, half_size)
+    b = extract_submatrix(x, 0, half_size-1, half_size)
+    c = extract_submatrix(x, half_size-1, 0, half_size)
+    d = extract_submatrix(x, half_size-1, half_size-1, half_size)
+    e = extract_submatrix(y, 0, 0, half_size)
+    f = extract_submatrix(y, 0, half_size-1, half_size)
+    g = extract_submatrix(y, half_size-1, 0, half_size)
+    h = extract_submatrix(y, half_size-1, half_size-1, half_size)
+    # TODO: Use the submatrices as seen on page 75
     require 'pry'; binding.pry
   end
 
