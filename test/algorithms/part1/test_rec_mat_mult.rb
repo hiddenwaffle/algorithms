@@ -6,7 +6,14 @@ class TestRecMatMult < Minitest::Test
     @subject = Algorithms::RecMatMult.new
   end
 
-  def test_rect_int_mult
+  def test_rect_int_mult_2x2
+    a = [[1, 2], [3, 4]]
+    b = [[5, 6], [7, 8]]
+    c = [[19, 22], [43, 50]]
+    assert_equal c, @subject.rec_mat_mult(a, b)
+  end
+
+  def test_rect_int_mult_4x4
     a = [
       [1, 2, 3, 4],
       [5, 6, 7, 8],
