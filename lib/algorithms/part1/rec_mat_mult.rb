@@ -19,10 +19,7 @@ class Algorithms::RecMatMult
     af_plus_bh = add(rec_mat_mult(a, f), rec_mat_mult(b, h))
     ce_plus_dg = add(rec_mat_mult(c, e), rec_mat_mult(d, g))
     cf_plus_dh = add(rec_mat_mult(c, f), rec_mat_mult(d, h))
-    [
-      [ae_plus_bg, af_plus_bh].flatten,
-      [ce_plus_dg, cf_plus_dh].flatten
-    ]
+    construct_matrix(ae_plus_bg, af_plus_bh, ce_plus_dg, cf_plus_dh, half_size)
   end
 
   private
@@ -63,5 +60,18 @@ class Algorithms::RecMatMult
       end
     end
     z
+  end
+
+  # | a b |
+  # | c d |, where a, b, c, and d are submatrices
+  def construct_matrix(a, b, c, d, half_size)
+    x = []
+    half_size.times do |row|
+      x << [a[row], b[row]].flatten
+    end
+    half_size.times do |row|
+      x << [c[row], d[row]].flatten
+    end
+    x
   end
 end
