@@ -27,11 +27,6 @@ class Algorithms::Strassen
       add(p3, p4), subtract(subtract(add(p1, p5), p3), p7),
       half_size
     )
-    # ae_plus_bg = add(rec_mat_mult(a, e), rec_mat_mult(b, g))
-    # af_plus_bh = add(rec_mat_mult(a, f), rec_mat_mult(b, h))
-    # ce_plus_dg = add(rec_mat_mult(c, e), rec_mat_mult(d, g))
-    # cf_plus_dh = add(rec_mat_mult(c, f), rec_mat_mult(d, h))
-    # construct_matrix(ae_plus_bg, af_plus_bh, ce_plus_dg, cf_plus_dh, half_size)
   end
 
   private
