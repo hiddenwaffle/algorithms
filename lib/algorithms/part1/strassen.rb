@@ -15,11 +15,23 @@ class Algorithms::Strassen
     f = extract_submatrix(y, 0, half_size, half_size)
     g = extract_submatrix(y, half_size, 0, half_size)
     h = extract_submatrix(y, half_size, half_size, half_size)
-    ae_plus_bg = add(rec_mat_mult(a, e), rec_mat_mult(b, g))
-    af_plus_bh = add(rec_mat_mult(a, f), rec_mat_mult(b, h))
-    ce_plus_dg = add(rec_mat_mult(c, e), rec_mat_mult(d, g))
-    cf_plus_dh = add(rec_mat_mult(c, f), rec_mat_mult(d, h))
-    construct_matrix(ae_plus_bg, af_plus_bh, ce_plus_dg, cf_plus_dh, half_size)
+    p1 = rec_mat_mult(a, subtract(f, h))
+    p2 = rec_mat_mult(add(a, b), h)
+    p3 = rec_mat_mult(add(c, d), e)
+    p4 = rec_mat_mult(d, subtract(g, e))
+    p5 = rec_mat_mult(add(a, d), add(e, h))
+    p6 = rec_mat_mult(subtract(b, d), add(g, h))
+    p7 = rec_mat_mult(subtract(a, c), add(e, f))
+    construct_matrix(
+      add(subtract(add(p5, p4), p2), p6), add(p1, p2),
+      add(p3, p4), subtract(subtract(add(p1, p5), p3), p7),
+      half_size
+    )
+    # ae_plus_bg = add(rec_mat_mult(a, e), rec_mat_mult(b, g))
+    # af_plus_bh = add(rec_mat_mult(a, f), rec_mat_mult(b, h))
+    # ce_plus_dg = add(rec_mat_mult(c, e), rec_mat_mult(d, g))
+    # cf_plus_dh = add(rec_mat_mult(c, f), rec_mat_mult(d, h))
+    # construct_matrix(ae_plus_bg, af_plus_bh, ce_plus_dg, cf_plus_dh, half_size)
   end
 
   private
@@ -57,6 +69,17 @@ class Algorithms::Strassen
     size.times do |row|
       size.times do |col|
         z[row][col] = a[row][col] + b[row][col]
+      end
+    end
+    z
+  end
+
+  def subtract(a, b)
+    size = a.size
+    z = create_matrix(size)
+    size.times do |row|
+      size.times do |col|
+        z[row][col] = a[row][col] - b[row][col]
       end
     end
     z
