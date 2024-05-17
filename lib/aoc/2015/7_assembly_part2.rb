@@ -23,8 +23,16 @@ EXAMPLE = <<~EOF
 EOF
 
 class AoC::AoC_2015
-  def day_7
-    input = File.read "#{__dir__}/7_assembly.input"
+  def day_7_part_2
+    # IMPORTANT:
+    # The difference between part1 and part2's input is that "14146 -> b" should be removed.
+    # Otherwise this will result in the wrong number.
+    input = File.read "#{__dir__}/7_assembly_part2.input"
+    a = 956
+    puts "a: #{a}"
+    vars_reset!
+    execute(["#{a} -> b"])
+    puts vars
     leftovers = input.lines
     loop do
       break if leftovers.empty?
@@ -50,6 +58,7 @@ class AoC::AoC_2015
             leftovers << line
           else
             vars[target] = vars[a]
+            puts "#{target} := #{vars[a]}"
           end
         end
       when 4 # Bitwise complement
@@ -59,6 +68,7 @@ class AoC::AoC_2015
           leftovers << line
         else
           vars[target] = vars[a] ^ 65535
+          puts "#{target} := #{vars[target]} # (was #{vars[a]})"
         end
       when 5 # Other bitwise operations
         a = tokens[0]
@@ -74,24 +84,28 @@ class AoC::AoC_2015
             leftovers << line
           else
             vars[target] = left & right
+            puts "#{target} := #{left} & #{right} == #{vars[target]}"
           end
         when 'OR'
           if left.nil? || right.nil?
             leftovers << line
           else
             vars[target] = left | right
+            puts "#{target} := #{left} | #{right} == #{vars[target]}"
           end
         when 'LSHIFT'
           if left.nil?
             leftovers << line
           else
             vars[target] = left << b.to_i
+            puts "#{target} := #{left} << #{right} == #{vars[target]}"
           end
         when 'RSHIFT'
           if left.nil?
             leftovers << line
           else
             vars[target] = left >> b.to_i
+            puts "#{target} := #{left} >> #{right} == #{vars[target]}"
           end
         else
           raise 'wtf'
@@ -106,6 +120,10 @@ class AoC::AoC_2015
   def vars
     @vars ||= {}
   end
+
+  def vars_reset!
+    @vars = {}
+  end
 end
 
-AoC::AoC_2015.new.day_7
+AoC::AoC_2015.new.day_7_part_2
