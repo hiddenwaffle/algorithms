@@ -16,7 +16,6 @@ class AoC::AoC_2015
     end
     num_chars = 0
     input.lines.map { |line| line.strip }.each do |line|
-      # require 'pry'; binding.pry
       num_chars += eval(line).size
     end
     puts "num_codes:  #{num_codes}"
