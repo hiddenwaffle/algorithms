@@ -8,7 +8,7 @@ require_relative '../aoc_2015'
 # EOF
 
 class AoC::AoC_2015
-  def day_9
+  def day_9_part2
     input = File.read("#{__dir__}/9_single_night.input")
     # First find the locations
     locations = Set.new
@@ -23,8 +23,8 @@ class AoC::AoC_2015
       from, _, to, _, distance_str = line.split
       database["#{from} -> #{to}"] = distance_str.to_i
     end
-    # Now capture the lowest total distance for each route
-    lowest = 9999999999999999999
+    # Now capture the longest total distance for each route
+    longest = 0
     routes = locations.sort.permutation
     routes.each do |route|
       distance = 0
@@ -32,10 +32,10 @@ class AoC::AoC_2015
         a, b = pair
         distance += database["#{b} -> #{a}"] || database["#{a} -> #{b}"]
       end
-      lowest = distance if distance < lowest
+      longest = distance if distance > longest
     end
-    puts lowest
+    puts longest
   end
 end
 
-AoC::AoC_2015.new.day_9
+AoC::AoC_2015.new.day_9_part2
