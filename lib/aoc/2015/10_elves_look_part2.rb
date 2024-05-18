@@ -1,9 +1,9 @@
 require_relative '../aoc_2015'
 
 class AoC::AoC_2015
-  def day_10_part_2
+  def day_10
     input = 1321131112
-    50.times do
+    40.times do
       input = look_and_say(input)
     end
     puts input.to_s.length
@@ -38,4 +38,4 @@ class AoC::AoC_2015
   end
 end
 
-AoC::AoC_2015.new.day_10_part_2
+AoC::AoC_2015.new.day_10
