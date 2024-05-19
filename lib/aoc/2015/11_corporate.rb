@@ -4,6 +4,7 @@ class AoC::AoC_2015
   def day_11
     str = 'zw'
     10.times do |i|
+      break
       str = inc(str)
       puts str
     end
