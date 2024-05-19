@@ -35,6 +35,7 @@ class AoC::AoC_2015
     return false unless contains_iol(str)
     # 3) Must contain at least two different, non-overlapping pairs of letters
     #   Examples: aa, bb, or zz
+    # TODO: Check this
   end
 
   def has_straight(str)
