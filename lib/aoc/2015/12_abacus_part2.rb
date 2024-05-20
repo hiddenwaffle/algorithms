@@ -5,7 +5,7 @@ require_relative '../aoc_2015'
 # EXAMPLE = '{"a":{"b":4},"c":-1}'
 
 class AoC::AoC_2015
-  def day_12
+  def day_12_part_2
     obj = JSON.parse(File.read("#{__dir__}/12_abacus.input"))
     puts sum(obj)
   end
@@ -16,7 +16,11 @@ class AoC::AoC_2015
     if obj.class == Array
       obj.map { |e| sum(e) }.reduce(:+)
     elsif obj.class == Hash
-      obj.values.map { |e| sum(e) }.reduce(:+)
+      if obj.values.include?('red')
+        0
+      else
+        obj.values.map { |e| sum(e) }.reduce(:+)
+      end
     elsif obj.class == Integer
       obj
     else
@@ -25,4 +29,4 @@ class AoC::AoC_2015
   end
 end
 
-AoC::AoC_2015.new.day_12
+AoC::AoC_2015.new.day_12_part_2
