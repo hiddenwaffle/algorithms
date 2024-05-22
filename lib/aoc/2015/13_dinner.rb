@@ -1,3 +1,4 @@
+require 'set'
 require_relative '../aoc_2015'
 
 EXAMPLE = <<~EOF
@@ -18,9 +19,30 @@ EOF
 class AoC::AoC_2015
   def day_13
     input = EXAMPLE
+    parse_names(input)
+  end
+
+  private
+
+  def parse_names(input)
+    names = Set.new
     input.lines.each do |line|
-      puts line
+      parse_line(line)
     end
+  end
+
+  def parse_line(line)
+    match_data = line.match /^(.*) would (.*) (.*) happiness units by sitting next to (.*).$/
+    subject, action, amount_str, neighbor = match_data[1..4]
+    case action
+    when 'gain'
+      amount = amount_str.to_i
+    when 'lose'
+      amount = amount_str.to_i * -1
+    else
+      raise 'wtf'
+    end
+    puts "#{subject} #{amount} #{neighbor}"
   end
 end
 
