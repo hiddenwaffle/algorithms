@@ -1,4 +1,3 @@
-require 'set'
 require_relative '../aoc_2015'
 
 EXAMPLE = <<~EOF
@@ -19,16 +18,22 @@ EOF
 class AoC::AoC_2015
   def day_13
     input = EXAMPLE
-    parse_names(input)
+    effects = parse_names(input)
+    pp effects
   end
 
   private
 
   def parse_names(input)
-    names = Set.new
+    effects = {}
     input.lines.each do |line|
-      parse_line(line)
+      effect_key, amount = parse_line(line)
+      effects[effect_key] = amount
     end
+    names = extract_names(effects)
+    names.permutation.each { |seating_order| pp seating_order }
+    pp effects
+    binding.pry
   end
 
   def parse_line(line)
@@ -42,7 +47,15 @@ class AoC::AoC_2015
     else
       raise 'wtf'
     end
-    puts "#{subject} #{amount} #{neighbor}"
+    [key_from(subject, neighbor), amount]
+  end
+
+  def key_from(subject, neighbor)
+    [subject, neighbor]
+  end
+
+  def extract_names(effects)
+    effects.keys.map { |k| k[0] }.uniq
   end
 end
 
