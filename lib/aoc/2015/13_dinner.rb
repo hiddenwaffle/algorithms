@@ -18,23 +18,16 @@ EOF
 class AoC::AoC_2015
   def day_13
     input = EXAMPLE
-    effects = parse_names(input)
-    pp effects
-  end
-
-  private
-
-  def parse_names(input)
     effects = {}
     input.lines.each do |line|
       effect_key, amount = parse_line(line)
       effects[effect_key] = amount
     end
     names = extract_names(effects)
-    names.permutation.each { |seating_order| pp seating_order }
-    pp effects
-    binding.pry
+    puts calculate_highest_happiness_for_names(effects, names)
   end
+
+  private
 
   def parse_line(line)
     match_data = line.match /^(.*) would (.*) (.*) happiness units by sitting next to (.*).$/
@@ -56,6 +49,17 @@ class AoC::AoC_2015
 
   def extract_names(effects)
     effects.keys.map { |k| k[0] }.uniq
+  end
+
+  def calculate_highest_happiness_for_names(effects, names)
+    highest = 0
+    names.permutation.each do |permutation|
+      pp permutation
+    end
+    highest
+  end
+
+  def calculate_total_effect_for_ordering(effects, ordering)
   end
 end
 
