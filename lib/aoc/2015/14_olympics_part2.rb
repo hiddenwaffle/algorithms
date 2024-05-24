@@ -1,18 +1,18 @@
 require_relative '../aoc_2015'
 
-EXAMPLE_TIME = 1000
-EXAMPLE = <<~EOF
-  Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.
-  Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.
-EOF
+# EXAMPLE_TIME = 1000
+# EXAMPLE = <<~EOF
+#   Comet can fly 14 km/s for 10 seconds, but then must rest for 127 seconds.
+#   Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.
+# EOF
 
 Racer = Struct.new(:name, :speed, :stamina, :recovery, :distance, :flying_ttl, :resting_ttl, :points)
 
 class AoC::AoC_2015
   def day_14_part_2
     # Input
-    input = EXAMPLE # File.read("#{__dir__}/14_olympics.input")
-    time = EXAMPLE_TIME # 2503
+    input = File.read("#{__dir__}/14_olympics.input")
+    time = 2503
     # Processing
     racers = parse_racers(input)
     winner = race(time, racers)
@@ -63,12 +63,15 @@ class AoC::AoC_2015
   end
 
   def award_point(racers)
-    leader = find_leader(racers)
-    leader.points += 1
+    leaders = find_leaders(racers)
+    leaders.each do |leader|
+      leader.points += 1
+    end
   end
 
-  def find_leader(racers)
-    racers.reduce { |leader, current| leader.distance > current.distance ? leader : current }
+  def find_leaders(racers)
+    farthest = racers.reduce(0) { |farthest, current| farthest > current.distance ? farthest : current.distance  }
+    racers.filter { |racer| racer.distance == farthest }
   end
 
   def find_winner(racers)
