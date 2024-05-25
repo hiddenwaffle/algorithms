@@ -9,6 +9,8 @@ EXAMPLE = <<~EOF
   5
 EOF
 
+$recursive_depths = 0
+
 class AoC::AoC_2015
   def day_17
     total_liters = EXAMPLE_TOTAL_LITERS # 150
@@ -35,21 +37,27 @@ class AoC::AoC_2015
         next_target = target - e
         if next_target > 0
           next_arr = arr.dup.tap { |a| a.delete_at(i) }
-          puts "target: #{target}, arr: #{arr.inspect}, e: #{e}, next_target: #{next_target}, next_arr: #{next_arr.inspect}"
+          # puts "target: #{target}, arr: #{arr.inspect}, e: #{e}, next_target: #{next_target}, next_arr: #{next_arr.inspect}"
           tails = calc_possibilities(next_target, next_arr)
+          inc_recursive_depths
           tails.each do |tail|
             next_possibility = [e, *tail]
             possibilities << next_possibility if next_possibility.sum == target
           end
         elsif next_target == 0
-          puts "target: #{target}, arr: #{arr.inspect}, e: #{e}, next_target: #{next_target} - FIT <<<<<<<<<<<<<<<<<<"
+          # puts "target: #{target}, arr: #{arr.inspect}, e: #{e}, next_target: #{next_target} - FIT <<<<<<<<<<<<<<<<<<"
           possibilities << [e]
         else
-          puts "target: #{target}, arr: #{arr.inspect}, e: #{e}, next_target: #{next_target} - END, NO FIT"
+          # puts "target: #{target}, arr: #{arr.inspect}, e: #{e}, next_target: #{next_target} - END, NO FIT"
         end
       end
       possibilities
     end
+  end
+
+  def inc_recursive_depths
+    $recursive_depths += 1
+    puts "recursive_depths: #{$recursive_depths}" if $recursive_depths % 100000 == 0
   end
 end
 
