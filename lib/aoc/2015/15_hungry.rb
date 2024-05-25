@@ -52,7 +52,8 @@ class AoC::AoC_2015
     ingredient_types.count.times do |i|
       scores << ingredient_types[i].send(property) * amounts[i]
     end
-    scores.reduce(:+)
+    total = scores.reduce(:+)
+    total > 0 ? total : 0
   end
 end
 
