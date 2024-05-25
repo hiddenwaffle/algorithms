@@ -13,7 +13,7 @@ class AoC::AoC_2015
   def day_15
     input = EXAMPLE
     ingredient_types = parse_ingredient_types(input)
-    puts compute_score(ingredient_types, [44, 56])
+    puts find_best_score(ingredient_types)
   end
 
   private
@@ -35,6 +35,10 @@ class AoC::AoC_2015
       texture: texture_str.to_i,
       calories: calories_str.to_i
     )
+  end
+
+  def find_best_score(ingredient_types)
+    compute_score(ingredient_types, [44, 56])
   end
 
   def compute_score(ingredient_types, amounts)
