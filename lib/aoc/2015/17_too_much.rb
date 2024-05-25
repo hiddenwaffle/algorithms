@@ -16,7 +16,10 @@ class AoC::AoC_2015
     containers = input.lines.map do |line|
       line.strip.to_i
     end
-    pp calc_possibilities(total_liters, containers)
+    results = calc_possibilities(total_liters, containers)
+    puts '---'
+    pp results
+    binding.pry
   end
 
   private
