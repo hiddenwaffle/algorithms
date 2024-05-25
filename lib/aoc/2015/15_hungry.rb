@@ -11,7 +11,7 @@ Cauldron = Data.define(:ingredients)
 
 class AoC::AoC_2015
   def day_15
-    input = EXAMPLE
+    input = EXAMPLE # File.read("#{__dir__}/15_hungry.input")
     ingredient_types = parse_ingredient_types(input)
     puts find_best_score(ingredient_types)
   end
@@ -38,13 +38,23 @@ class AoC::AoC_2015
   end
 
   def find_best_score(ingredient_types)
-    binding.pry
-    # possibilities = calc_possibilities(100, ingredient_types.count)
-    calc_score(ingredient_types, [44, 56])
+    max = 100
+    possibilities = calc_possibilities(max, ingredient_types.count)
+    puts "Number of possibilities #{possibilities.count}"
+    highest = 0
+    possibilities.each.with_index do |possibility, i|
+      score = calc_score(ingredient_types, possibility)
+      highest = score if score > highest
+    end
+    highest
   end
 
-  def calc_possibilities(amount, spaces)
-    # Example: amount = 5
+  def calc_possibilities(max, spaces)
+    calc_all(max, spaces).filter { |p| p.reduce(:+) == max}
+  end
+
+  def calc_all(max, spaces)
+    # Example: max = 5
     # spaces = 0 => 0 possibilities
     #   []
     # spaces = 1 => 1 possibility
@@ -58,16 +68,17 @@ class AoC::AoC_2015
     #   [2,3,0], [2,2,1], [2,1,2], [2,0,3],
     #   [1,4,0], [1,3,1], [1,2,2], [1,1,3], [1,0,4]
     #   [0,5,0], [0,4,1], [0,3,2], [0,2,3], [0,1,4], [0,0,5]
-    if spaces <= 0
+    if spaces == 0
       []
     elsif spaces == 1
-      [amount > 0 ? amount : 0]
+      (0..max).to_a
     else
       possibilities = []
-      (0..amount).each do |i|
-        tails = calc_possibilities(i-1, spaces-1)
+      (0..max).each do |i|
+        tails = calc_all(max, spaces-1)
         tails.each do |tail|
-          possibilities << [i, *tail]
+          next_possibility = [i, *tail]
+          possibilities << next_possibility
         end
       end
       possibilities
