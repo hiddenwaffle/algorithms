@@ -38,16 +38,49 @@ class AoC::AoC_2015
   end
 
   def find_best_score(ingredient_types)
-    compute_score(ingredient_types, [44, 56])
+    binding.pry
+    # possibilities = calc_possibilities(100, ingredient_types.count)
+    calc_score(ingredient_types, [44, 56])
   end
 
-  def compute_score(ingredient_types, amounts)
+  def calc_possibilities(amount, spaces)
+    # Example: amount = 5
+    # spaces = 0 => 0 possibilities
+    #   []
+    # spaces = 1 => 1 possibility
+    #   [5]
+    # spaces = 2 => 6 possibilities
+    #   [0,5], [1,4], [2,3], [3,2], [4,1], [5,0]
+    # spaces = 3 => 21 possibilities
+    #   [5,0,0],
+    #   [4,1,0], [4,0,1],
+    #   [3,2,0], [3,1,1], [3,0,2],
+    #   [2,3,0], [2,2,1], [2,1,2], [2,0,3],
+    #   [1,4,0], [1,3,1], [1,2,2], [1,1,3], [1,0,4]
+    #   [0,5,0], [0,4,1], [0,3,2], [0,2,3], [0,1,4], [0,0,5]
+    if spaces <= 0
+      []
+    elsif spaces == 1
+      [amount > 0 ? amount : 0]
+    else
+      possibilities = []
+      (0..amount).each do |i|
+        tails = calc_possibilities(i-1, spaces-1)
+        tails.each do |tail|
+          possibilities << [i, *tail]
+        end
+      end
+      possibilities
+    end
+  end
+
+  def calc_score(ingredient_types, amounts)
     raise 'wtf' if ingredient_types.count != amounts.count
-    calc = method(:compute_property_score).curry.(ingredient_types, amounts)
+    calc = method(:calc_property_score).curry.(ingredient_types, amounts)
     calc.(:capacity) * calc.(:durability) * calc.(:flavor) * calc.(:texture)
   end
 
-  def compute_property_score(ingredient_types, amounts, property)
+  def calc_property_score(ingredient_types, amounts, property)
     scores = []
     ingredient_types.count.times do |i|
       scores << ingredient_types[i].send(property) * amounts[i]
