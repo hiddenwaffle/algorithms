@@ -43,8 +43,10 @@ class AoC::AoC_2015
     puts "Number of possibilities #{possibilities.count}"
     highest = 0
     possibilities.each.with_index do |possibility, i|
-      score = calc_score(ingredient_types, possibility)
-      highest = score if score > highest
+      score, calories = calc_score_and_calories(ingredient_types, possibility)
+      if calories == 500
+        highest = score if score > highest
+      end
     end
     highest
   end
@@ -81,10 +83,12 @@ class AoC::AoC_2015
     end
   end
 
-  def calc_score(ingredient_types, amounts)
+  def calc_score_and_calories(ingredient_types, amounts)
     raise 'wtf' if ingredient_types.count != amounts.count
     calc = method(:calc_property_score).curry.(ingredient_types, amounts)
-    calc.(:capacity) * calc.(:durability) * calc.(:flavor) * calc.(:texture)
+    score = calc.(:capacity) * calc.(:durability) * calc.(:flavor) * calc.(:texture)
+    calories = calc.(:calories)
+    [score, calories]
   end
 
   def calc_property_score(ingredient_types, amounts, property)
