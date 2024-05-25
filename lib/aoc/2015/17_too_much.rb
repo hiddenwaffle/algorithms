@@ -11,44 +11,47 @@ EOF
 
 $recursive_depths = 0
 
+Container = Struct.new(:id, :capacity)
+
 class AoC::AoC_2015
   def day_17
     total_liters = EXAMPLE_TOTAL_LITERS # 150
     input = EXAMPLE # File.read "#{__dir__}/17_too_much.input"
-    containers = input.lines.map do |line|
-      line.strip.to_i
+    containers = input.lines.map.with_index do |line, i|
+      capacity = line.strip.to_i
+      Container.new(id: i, capacity: capacity)
     end
-    results = calc_possibilities(total_liters, containers)
+    results_arr = calc_possibilities(total_liters, containers)
+    results = results_arr.map(&:to_set).uniq
     puts '---'
     pp results
-    binding.pry
+    puts "Count: #{results.count}"
   end
 
   private
 
-  def calc_possibilities(target, arr)
-    if arr.size == 0
+  def calc_possibilities(target, containers)
+    if containers.size == 0
       []
-    elsif arr.size == 1 # TODO: Would it ever actually get here?
-      [arr]
+    elsif containers.size == 1 # TODO: Would it ever actually get here?
+      [containers]
     else
       possibilities = []
-      arr.each.with_index do |e, i|
-        next_target = target - e
+      containers.each.with_index do |container, i|
+        next_target = target - container.capacity
         if next_target > 0
-          next_arr = arr.dup.tap { |a| a.delete_at(i) }
-          # puts "target: #{target}, arr: #{arr.inspect}, e: #{e}, next_target: #{next_target}, next_arr: #{next_arr.inspect}"
-          tails = calc_possibilities(next_target, next_arr)
+          next_containers = containers.dup.tap { |a| a.delete_at(i) }
+          tails = calc_possibilities(next_target, next_containers)
           inc_recursive_depths
           tails.each do |tail|
-            next_possibility = [e, *tail]
-            possibilities << next_possibility if next_possibility.sum == target
+            next_possibility = [container, *tail]
+            remaining_capacity = next_possibility.reduce(0) { |acc, container| acc + container.capacity }
+            possibilities << next_possibility if remaining_capacity == target
           end
         elsif next_target == 0
-          # puts "target: #{target}, arr: #{arr.inspect}, e: #{e}, next_target: #{next_target} - FIT <<<<<<<<<<<<<<<<<<"
-          possibilities << [e]
+          possibilities << [container]
         else
-          # puts "target: #{target}, arr: #{arr.inspect}, e: #{e}, next_target: #{next_target} - END, NO FIT"
+          # TBD
         end
       end
       possibilities
