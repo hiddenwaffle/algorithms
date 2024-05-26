@@ -22,6 +22,8 @@ class AoC::AoC_2015
       Container.new(id: i, capacity: capacity)
     end
     results_arr = calc_possibilities(total_liters, containers)
+    pp results_arr
+    puts '---'
     results = results_arr.map(&:to_set).uniq
     puts '---'
     pp results
