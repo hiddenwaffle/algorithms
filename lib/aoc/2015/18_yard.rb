@@ -12,9 +12,9 @@ EOF
 EXAMPLE_STEPS = 4
 
 class AoC::AoC_2015
-  BOARD_SIZE = EXAMPLE_BOARD_SIZE
-  INPUT = EXAMPLE
-  STEPS = EXAMPLE_STEPS
+  BOARD_SIZE = 100 # EXAMPLE_BOARD_SIZE
+  INPUT = File.read("#{__dir__}/18_yard.input") # EXAMPLE
+  STEPS = 100 # EXAMPLE_STEPS
 
   def day_18
     board = parse_board
