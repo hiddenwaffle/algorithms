@@ -16,8 +16,8 @@ Container = Struct.new(:id, :capacity)
 
 class AoC::AoC_2015
   def day_17
-    total_liters = 150
-    input = File.read "#{__dir__}/17_too_much.input"
+    total_liters = EXAMPLE_TOTAL_LITERS # 150
+    input = EXAMPLE # File.read "#{__dir__}/17_too_much.input"
     containers = input.lines.map.with_index do |line, i|
       capacity = line.strip.to_i
       Container.new(id: i, capacity: capacity)
