@@ -10,6 +10,7 @@ EXAMPLE = <<~EOF
 EOF
 
 $recursive_depths = 0
+$cache = {}
 
 Container = Struct.new(:id, :capacity)
 
@@ -38,6 +39,7 @@ class AoC::AoC_2015
     elsif containers.size == 1 # TODO: Would it ever actually get here?
       [containers]
     else
+      return $cache[[target, containers]] if $cache.has_key?([target, containers])
       possibilities = []
       containers.each.with_index do |container, i|
         next_target = target - container.capacity
@@ -56,6 +58,7 @@ class AoC::AoC_2015
           # TBD
         end
       end
+      $cache[[target, containers]] = possibilities
       possibilities
     end
   end
