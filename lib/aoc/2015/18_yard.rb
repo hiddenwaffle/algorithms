@@ -20,8 +20,8 @@ class AoC::AoC_2015
     board = parse_board
     STEPS.times do
       board = step(board)
-      puts '-----------------------------------------------------------------------------'
-      pp board
+      # puts '-----------------------------------------------------------------------------'
+      # pp board
     end
     puts "Count: #{count_on(board)}"
   end
