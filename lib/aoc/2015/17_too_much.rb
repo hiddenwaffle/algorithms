@@ -22,11 +22,7 @@ class AoC::AoC_2015
       capacity = line.strip.to_i
       Container.new(id: i, capacity: capacity)
     end
-    results_arr = calc_possibilities(total_liters, containers)
-    pp results_arr
-    puts '---'
-    results = results_arr.map(&:to_set).uniq
-    puts '---'
+    results = calc_possibilities(total_liters, containers)
     pp results
     puts "Count: #{results.count}"
   end
@@ -35,12 +31,12 @@ class AoC::AoC_2015
 
   def calc_possibilities(target, containers)
     if containers.size == 0
-      []
+      Set.new
     elsif containers.size == 1 # TODO: Would it ever actually get here?
-      [containers]
+      Set.new([containers])
     else
       return $cache[[target, containers]] if $cache.has_key?([target, containers])
-      possibilities = []
+      possibilities = Set.new
       containers.each.with_index do |container, i|
         next_target = target - container.capacity
         if next_target > 0
@@ -48,12 +44,12 @@ class AoC::AoC_2015
           tails = calc_possibilities(next_target, next_containers)
           inc_recursive_depths
           tails.each do |tail|
-            next_possibility = [container, *tail]
+            next_possibility = Set.new([container, *tail])
             remaining_capacity = next_possibility.reduce(0) { |acc, container| acc + container.capacity }
             possibilities << next_possibility if remaining_capacity == target
           end
         elsif next_target == 0
-          possibilities << [container]
+          possibilities << Set.new([container])
         else
           # TBD
         end
