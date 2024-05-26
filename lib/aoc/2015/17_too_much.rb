@@ -65,7 +65,7 @@ class AoC::AoC_2015
 
   def inc_recursive_depths
     $recursive_depths += 1
-    puts "recursive_depths: #{$recursive_depths}" if $recursive_depths % 100000 == 0
+    puts "recursive_depths: #{$recursive_depths}" if $recursive_depths % 10000 == 0
   end
 end
 
