@@ -48,6 +48,7 @@ class AoC::AoC_2015
     end
     return step if molecules.include?(target)
     steps = molecules.map do |molecule|
+      # puts "#{step} #{molecule}"
       find_shortest_path(molecule, target, replacements, step+1) if molecule.size <= target.size
     end.compact
     steps.min
