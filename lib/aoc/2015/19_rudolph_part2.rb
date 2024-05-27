@@ -33,6 +33,7 @@ class AoC::AoC_2015
           count += 1
           puts "#{count} / #{molecules.size}" if count % 10000 == 0
           candidates = process(target, molecule, replacements)
+          # TODO: More rejections
           candidates.reject { |molecule| molecule.size != 1 && molecule.include?(target) }
         end.compact
         molecules = next_molecules
