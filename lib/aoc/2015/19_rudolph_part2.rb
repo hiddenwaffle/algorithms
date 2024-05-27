@@ -16,8 +16,8 @@ INPUT = File.read "#{__dir__}/19_rudolph.input"
 
 class AoC::AoC_2015
   def day_19_part_2
-    # molecule = EXAMPLE_MOLECULE; input = EXAMPLE
-    molecule = MOLECULE; input = INPUT
+    molecule = EXAMPLE_MOLECULE; input = EXAMPLE
+    # molecule = MOLECULE; input = INPUT
     replacements = parse_replacements(input)
     puts find_shortest_path('e', molecule, replacements.invert)
   end
@@ -33,14 +33,15 @@ class AoC::AoC_2015
           count += 1
           puts "#{count} / #{molecules.size}" if count % 10000 == 0
           candidates = process(target, molecule, replacements)
+          candidates = candidates.reject { |molecule| molecule.size != 1 && molecule.include?(target) }
           # TODO: More rejections
-          candidates.reject { |molecule| molecule.size != 1 && molecule.include?(target) }
+          candidates
         end.compact
         molecules = next_molecules
         step += 1
         puts '---'
         puts "#{step} - molecules.size: #{molecules.size}"
-        # pp molecules
+        pp molecules
         break if molecules.include?(target)
       end
       step
