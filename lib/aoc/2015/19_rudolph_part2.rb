@@ -1,6 +1,6 @@
 require_relative '../aoc_2015'
 
-EXAMPLE_MOLECULE = 'HOH' # 'HOHOHO'
+EXAMPLE_MOLECULE = 'HOHOHO'
 EXAMPLE = <<~EOF
   e => H
   e => O
@@ -16,8 +16,8 @@ $count = 0
 
 class AoC::AoC_2015
   def day_19_part_2
-    molecule = MOLECULE
-    input = INPUT
+    molecule = EXAMPLE_MOLECULE # MOLECULE
+    input = EXAMPLE # INPUT
     replacements = parse_replacements(input)
     puts find_shortest_path('e', molecule, replacements)
   end
@@ -50,7 +50,9 @@ class AoC::AoC_2015
       end
       molecules = next_molecules
       step += 1
+      puts '---'
       puts "#{step} - molecules.size: #{molecules.size}"
+      pp molecules
       break if molecules.include?(target)
     end
     step
