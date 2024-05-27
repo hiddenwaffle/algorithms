@@ -48,7 +48,7 @@ class AoC::AoC_2015
     end
     return step if molecules.include?(target)
     steps = molecules.map do |molecule|
-      # puts "#{step} #{molecule}"
+      puts "#{step} #{molecule}"
       find_shortest_path(molecule, target, replacements, step+1) if molecule.size <= target.size
     end.compact
     steps.min
@@ -61,34 +61,9 @@ class AoC::AoC_2015
   end
 
   def replace_at(str, index, size, substr)
-    # puts "Replacing #{str} from #{index} to #{index+size-1} with #{substr}"
     before = index.zero? ? '' : str[..index-1]
     "#{before}#{substr}#{str[(index+size)..]}"
   end
-
-  # def day_19_part_2
-  #   molecule = MOLECULE # EXAMPLE_MOLECULE
-  #   input = INPUT # EXAMPLE
-  #   replacements = parse_replacements(input)
-  #   count = count_distinct_molecules(molecule, replacements)
-  #   puts "Count: #{count}"
-  # end
-
-  # def count_distinct_molecules(original, replacements)
-  #   molecules = Set.new
-  #   replacements.each do |(from, to)|
-  #     indices = find_indices(original, from, 0)
-  #     # puts "indices: #{indices.inspect}, original: #{original}, from: #{from}"
-  #     indices.each do |index|
-  #       to.each do |substr|
-  #         # puts "index: #{index}, #{from} => #{substr}"
-  #         molecules << replace_at(original, index, from.size, substr)
-  #       end
-  #     end
-  #   end
-  #   # pp molecules
-  #   molecules.size
-  # end
 end
 
 AoC::AoC_2015.new.day_19_part_2
