@@ -29,14 +29,18 @@ class AoC::AoC_2015
       molecules = process(target, start, replacements)
       loop do
         count = 0
-        next_molecules = molecules.flat_map do |molecule|
+        next_molecules = Set.new
+        molecules.each do |molecule|
           count += 1
           puts "#{count} / #{molecules.size}" if count % 10000 == 0
           candidates = process(target, molecule, replacements)
-          candidates = candidates.reject { |molecule| molecule.size != 1 && molecule.include?(target) }
-          # TODO: More rejections
+          candidates.each do |candidate|
+            next if candidate.size != 1 && candidate.include?(target)
+            # TODO: More rejections
+            next_molecules << candidate
+          end
           candidates
-        end.compact
+        end
         molecules = next_molecules
         step += 1
         puts '---'
