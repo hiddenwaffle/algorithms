@@ -1,6 +1,6 @@
 require_relative '../aoc_2015'
 
-EXAMPLE_MOLECULE = 'HOH' # 'HOHOHO'
+EXAMPLE_MOLECULE = 'HOHOHOHOHOHOHOHOHOHO' # 'HOH' # 'HOHOHO'
 EXAMPLE = <<~EOF
   e => H
   e => O
@@ -14,8 +14,8 @@ INPUT = File.read "#{__dir__}/19_rudolph.input"
 
 class AoC::AoC_2015
   def day_19_part_2
-    molecule = MOLECULE # EXAMPLE_MOLECULE
-    input = INPUT # EXAMPLE
+    molecule = EXAMPLE_MOLECULE
+    input = EXAMPLE
     replacements = parse_replacements(input)
     puts find_shortest_path('e', molecule, replacements)
   end
