@@ -12,7 +12,7 @@ EOF
 MOLECULE = 'CRnCaSiRnBSiRnFArTiBPTiTiBFArPBCaSiThSiRnTiBPBPMgArCaSiRnTiMgArCaSiThCaSiRnFArRnSiRnFArTiTiBFArCaCaSiRnSiThCaCaSiRnMgArFYSiRnFYCaFArSiThCaSiThPBPTiMgArCaPRnSiAlArPBCaCaSiRnFYSiThCaRnFArArCaCaSiRnPBSiRnFArMgYCaCaCaCaSiThCaCaSiAlArCaCaSiRnPBSiAlArBCaCaCaCaSiThCaPBSiThPBPBCaSiRnFYFArSiThCaSiRnFArBCaCaSiRnFYFArSiThCaPBSiThCaSiRnPMgArRnFArPTiBCaPRnFArCaCaCaCaSiRnCaCaSiRnFYFArFArBCaSiThFArThSiThSiRnTiRnPMgArFArCaSiThCaPBCaSiRnBFArCaCaPRnCaCaPMgArSiRnFYFArCaSiThRnPBPMgAr'
 INPUT = File.read "#{__dir__}/19_rudolph.input"
 
-$count = 0
+# $count = 0
 
 class AoC::AoC_2015
   def day_19_part_2
@@ -30,9 +30,13 @@ class AoC::AoC_2015
       step = 1
       molecules = process(target, start, replacements)
       loop do
+        count = 0
         next_molecules = molecules.flat_map do |molecule|
+          count += 1
+          puts "#{count} / #{molecules.size}" if count % 10000 == 0
           process(target, molecule, replacements)
         end
+        # TODO: What can I reject at this point?
         molecules = next_molecules
         step += 1
         puts '---'
