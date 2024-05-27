@@ -1,6 +1,6 @@
 require_relative '../aoc_2015'
 
-EXAMPLE_MOLECULE = 'OHOHOHO' # 'HOH' # 'HOHOHO'
+EXAMPLE_MOLECULE = 'OHOHOHOHO' # 'HOH' # 'HOHOHO'
 EXAMPLE = <<~EOF
   e => H
   e => O
