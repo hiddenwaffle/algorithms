@@ -30,16 +30,13 @@ class AoC::AoC_2015
       loop do
         count = 0
         next_molecules = Set.new
-        molecules.each do |molecule|
+        molecules.flat_map do |molecule|
           count += 1
           puts "#{count} / #{molecules.size}" if count % 10000 == 0
           candidates = process(target, molecule, replacements)
           candidates.each do |candidate|
-            next if candidate.size != 1 && candidate.include?(target)
-            # TODO: More rejections
             next_molecules << candidate
           end
-          candidates
         end
         molecules = next_molecules
         step += 1
@@ -57,7 +54,10 @@ class AoC::AoC_2015
       from.each do |substr|
         indicies = find_indices(start, substr, 0)
         indicies.each do |index|
-          molecules << replace_at(start, index, substr.size, to)
+          molecule = replace_at(start, index, substr.size, to)
+          next if molecule.size != 1 && molecule.include?(target)
+          # TODO: More rejections
+          molecules << molecule
         end
       end
     end
