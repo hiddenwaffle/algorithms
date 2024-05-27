@@ -1,6 +1,6 @@
 require_relative '../aoc_2015'
 
-EXAMPLE_MOLECULE = 'HOHOHOHOHOHOHOHOHOHO' # 'HOH' # 'HOHOHO'
+EXAMPLE_MOLECULE = 'OHOHOHO' # 'HOH' # 'HOHOHO'
 EXAMPLE = <<~EOF
   e => H
   e => O
@@ -37,18 +37,26 @@ class AoC::AoC_2015
   end
 
   def find_shortest_path(start, target, replacements, step=1)
+    puts '---'
     molecules = Set.new
     replacements.each do |(from, to)|
       indices = find_indices(start, from, 0)
       indices.each do |index|
         to.each do |substr|
+          # TODO: breadth-first instead of depth-first
           molecules << replace_at(start, index, from.size, substr)
         end
       end
     end
+    molecules.map do |molecule|
+      if molecule == target
+        puts "#{step} #{molecule} <-------------------------"
+      else
+        puts "#{step} #{molecule}"
+      end
+    end
     return step if molecules.include?(target)
     steps = molecules.map do |molecule|
-      puts "#{step} #{molecule}"
       find_shortest_path(molecule, target, replacements, step+1) if molecule.size <= target.size
     end.compact
     steps.min
