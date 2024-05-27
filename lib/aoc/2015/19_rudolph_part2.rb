@@ -1,6 +1,6 @@
 require_relative '../aoc_2015'
 
-EXAMPLE_MOLECULE = 'OHOHOHO' # 'HOH' # 'HOHOHO'
+EXAMPLE_MOLECULE = 'HOH' # 'HOHOHO'
 EXAMPLE = <<~EOF
   e => H
   e => O
@@ -38,31 +38,34 @@ class AoC::AoC_2015
     replacements
   end
 
-  def find_shortest_path(start, target, replacements, step=1)
+  def find_shortest_path(start, target, replacements)
     $count += 1
-    puts '---'
+    step = 1
+    molecules = process(start, target, replacements)
+    loop do
+      next_molecules = molecules.flat_map do |molecule|
+        process(molecule, target, replacements)
+      end.compact.uniq
+      # TODO: Reject molecules that are larger than the target
+      molecules = next_molecules
+      step += 1
+      # puts "#{step} #{molecules}"
+      break if molecules.include?(target)
+    end
+    step
+  end
+
+  def process(molecule, target, replacements)
     molecules = Set.new
     replacements.each do |(from, to)|
-      indices = find_indices(start, from, 0)
+      indices = find_indices(molecule, from, 0)
       indices.each do |index|
         to.each do |substr|
-          # TODO: breadth-first instead of depth-first
-          molecules << replace_at(start, index, from.size, substr)
+          molecules << replace_at(molecule, index, from.size, substr)
         end
       end
     end
-    molecules.map do |molecule|
-      if molecule == target
-        puts "#{$count} #{step} #{molecule} <-------------------------"
-      else
-        puts "#{$count} #{step} #{molecule}"
-      end
-    end
-    return step if molecules.include?(target)
-    steps = molecules.map do |molecule|
-      find_shortest_path(molecule, target, replacements, step+1) if molecule.size <= target.size
-    end.compact
-    steps.min
+    molecules.to_a
   end
 
   def find_indices(str, substr, start)
