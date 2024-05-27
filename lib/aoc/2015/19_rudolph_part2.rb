@@ -88,39 +88,6 @@ class AoC::AoC_2015
     before = index.zero? ? '' : str[..index-1]
     "#{before}#{substr}#{str[(index+size)..]}"
   end
-
-  # def find_shortest_path(start, target, replacements)
-  #   $count += 1
-  #   step = 1
-  #   molecules = process(start, target, replacements)
-  #   loop do
-  #     next_molecules = molecules.flat_map do |molecule|
-  #       process(molecule, target, replacements)
-  #     end.compact.uniq.reject do |molecule|
-  #       molecule.size > target.size
-  #     end
-  #     molecules = next_molecules
-  #     step += 1
-  #     puts '---'
-  #     puts "#{step} - molecules.size: #{molecules.size}"
-  #     pp molecules
-  #     break if molecules.include?(target)
-  #   end
-  #   step
-  # end
-
-  # def process(molecule, target, replacements)
-  #   molecules = Set.new
-  #   replacements.each do |(from, to)|
-  #     indices = find_indices(molecule, from, 0)
-  #     indices.each do |index|
-  #       to.each do |substr|
-  #         molecules << replace_at(molecule, index, from.size, substr)
-  #       end
-  #     end
-  #   end
-  #   molecules.to_a
-  # end
 end
 
 AoC::AoC_2015.new.day_19_part_2
