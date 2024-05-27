@@ -38,16 +38,29 @@ class AoC::AoC_2015
   def count_distinct_molecules(original, replacements)
     molecules = Set.new
     replacements.each do |(from, to)|
-      indices = find_indices(original, from)
-      binding.pry
+      indices = find_indices(original, from, 0)
+      # puts "indices: #{indices.inspect}, original: #{original}, from: #{from}"
+      indices.each do |index|
+        to.each do |substr|
+          # puts "index: #{index}, #{from} => #{substr}"
+          molecules << replace_at(original, index, from.size, substr)
+        end
+      end
     end
+    pp molecules
     molecules.size
   end
 
-  def find_indices(str, substr)
+  def find_indices(str, substr, start)
     index = str.index(substr)
     return nil if index.nil?
-    [index, *find_indices(str[(index + substr.size)..], substr)]
+    [start+index, *find_indices(str[(index + substr.size)..], substr, start+index+substr.size)]
+  end
+
+  def replace_at(str, index, size, substr)
+    # puts "Replacing #{str} from #{index} to #{index+size-1} with #{substr}"
+    before = index.zero? ? '' : str[..index-1]
+    "#{before}#{substr}#{str[(index+size)..]}"
   end
 end
 
