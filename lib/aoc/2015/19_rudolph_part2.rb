@@ -9,15 +9,15 @@ EXAMPLE = <<~EOF
   O => HH
 EOF
 
-# MOLECULE = 'CRnCaSiRnBSiRnFArTiBPTiTiBFArPBCaSiThSiRnTiBPBPMgArCaSiRnTiMgArCaSiThCaSiRnFArRnSiRnFArTiTiBFArCaCaSiRnSiThCaCaSiRnMgArFYSiRnFYCaFArSiThCaSiThPBPTiMgArCaPRnSiAlArPBCaCaSiRnFYSiThCaRnFArArCaCaSiRnPBSiRnFArMgYCaCaCaCaSiThCaCaSiAlArCaCaSiRnPBSiAlArBCaCaCaCaSiThCaPBSiThPBPBCaSiRnFYFArSiThCaSiRnFArBCaCaSiRnFYFArSiThCaPBSiThCaSiRnPMgArRnFArPTiBCaPRnFArCaCaCaCaSiRnCaCaSiRnFYFArFArBCaSiThFArThSiThSiRnTiRnPMgArFArCaSiThCaPBCaSiRnBFArCaCaPRnCaCaPMgArSiRnFYFArCaSiThRnPBPMgAr'
-# INPUT = File.read "#{__dir__}/19_rudolph.input"
+MOLECULE = 'CRnCaSiRnBSiRnFArTiBPTiTiBFArPBCaSiThSiRnTiBPBPMgArCaSiRnTiMgArCaSiThCaSiRnFArRnSiRnFArTiTiBFArCaCaSiRnSiThCaCaSiRnMgArFYSiRnFYCaFArSiThCaSiThPBPTiMgArCaPRnSiAlArPBCaCaSiRnFYSiThCaRnFArArCaCaSiRnPBSiRnFArMgYCaCaCaCaSiThCaCaSiAlArCaCaSiRnPBSiAlArBCaCaCaCaSiThCaPBSiThPBPBCaSiRnFYFArSiThCaSiRnFArBCaCaSiRnFYFArSiThCaPBSiThCaSiRnPMgArRnFArPTiBCaPRnFArCaCaCaCaSiRnCaCaSiRnFYFArFArBCaSiThFArThSiThSiRnTiRnPMgArFArCaSiThCaPBCaSiRnBFArCaCaPRnCaCaPMgArSiRnFYFArCaSiThRnPBPMgAr'
+INPUT = File.read "#{__dir__}/19_rudolph.input"
 
 class AoC::AoC_2015
   def day_19_part_2
-    molecule = EXAMPLE_MOLECULE
-    input = EXAMPLE
+    molecule = MOLECULE # EXAMPLE_MOLECULE
+    input = INPUT # EXAMPLE
     replacements = parse_replacements(input)
-    find_shortest_path('e', molecule, replacements)
+    puts find_shortest_path('e', molecule, replacements)
   end
 
   private
@@ -36,8 +36,21 @@ class AoC::AoC_2015
     replacements
   end
 
-  def find_shortest_path(start, target, replacements)
-    #
+  def find_shortest_path(start, target, replacements, step=1)
+    molecules = Set.new
+    replacements.each do |(from, to)|
+      indices = find_indices(start, from, 0)
+      indices.each do |index|
+        to.each do |substr|
+          molecules << replace_at(start, index, from.size, substr)
+        end
+      end
+    end
+    return step if molecules.include?(target)
+    steps = molecules.map do |molecule|
+      find_shortest_path(molecule, target, replacements, step+1) if molecule.size <= target.size
+    end.compact
+    steps.min
   end
 
   def find_indices(str, substr, start)
