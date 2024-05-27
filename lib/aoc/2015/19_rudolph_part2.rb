@@ -21,18 +21,39 @@ class AoC::AoC_2015
     # molecule = MOLECULE
     # input = INPUT
     replacements = parse_replacements(input)
-    puts find_shortest_path('e', molecule, replacements)
+    puts find_shortest_path('e', molecule, replacements.invert)
   end
 
   private
 
-  def find_shortest_path(start, target, replacements)
-    # TODO: Scan the target for replaced substrings
-    pp replacements
-    pp replacements.invert
-    # TODO: For each substring, reduce it back
-    # TODO: Could this be depth-first again?
-    binding.pry
+  def find_shortest_path(target, start, replacements)
+      step = 1
+      molecules = process(target, start, replacements)
+      loop do
+        next_molecules = molecules.flat_map do |molecule|
+          process(target, molecule, replacements)
+        end
+        molecules = next_molecules
+        step += 1
+        puts '---'
+        puts "#{step} - molecules.size: #{molecules.size}"
+        # pp molecules
+        break if molecules.include?(target)
+      end
+      step
+  end
+
+  def process(target, start, replacements)
+    molecules = Set.new
+    replacements.each do |(from, to)|
+      from.each do |substr|
+        indicies = find_indices(start, substr, 0)
+        indicies.each do |index|
+          molecules << replace_at(start, index, substr.size, to)
+        end
+      end
+    end
+    molecules.to_a
   end
 
   def parse_replacements(input)
