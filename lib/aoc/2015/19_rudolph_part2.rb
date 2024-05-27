@@ -1,6 +1,6 @@
 require_relative '../aoc_2015'
 
-EXAMPLE_MOLECULE = 'OHOHOHOHO' # 'HOH' # 'HOHOHO'
+EXAMPLE_MOLECULE = 'OHOHOHO' # 'HOH' # 'HOHOHO'
 EXAMPLE = <<~EOF
   e => H
   e => O
@@ -11,6 +11,8 @@ EOF
 
 MOLECULE = 'CRnCaSiRnBSiRnFArTiBPTiTiBFArPBCaSiThSiRnTiBPBPMgArCaSiRnTiMgArCaSiThCaSiRnFArRnSiRnFArTiTiBFArCaCaSiRnSiThCaCaSiRnMgArFYSiRnFYCaFArSiThCaSiThPBPTiMgArCaPRnSiAlArPBCaCaSiRnFYSiThCaRnFArArCaCaSiRnPBSiRnFArMgYCaCaCaCaSiThCaCaSiAlArCaCaSiRnPBSiAlArBCaCaCaCaSiThCaPBSiThPBPBCaSiRnFYFArSiThCaSiRnFArBCaCaSiRnFYFArSiThCaPBSiThCaSiRnPMgArRnFArPTiBCaPRnFArCaCaCaCaSiRnCaCaSiRnFYFArFArBCaSiThFArThSiThSiRnTiRnPMgArFArCaSiThCaPBCaSiRnBFArCaCaPRnCaCaPMgArSiRnFYFArCaSiThRnPBPMgAr'
 INPUT = File.read "#{__dir__}/19_rudolph.input"
+
+$count = 0
 
 class AoC::AoC_2015
   def day_19_part_2
@@ -37,6 +39,7 @@ class AoC::AoC_2015
   end
 
   def find_shortest_path(start, target, replacements, step=1)
+    $count += 1
     puts '---'
     molecules = Set.new
     replacements.each do |(from, to)|
@@ -50,9 +53,9 @@ class AoC::AoC_2015
     end
     molecules.map do |molecule|
       if molecule == target
-        puts "#{step} #{molecule} <-------------------------"
+        puts "#{$count} #{step} #{molecule} <-------------------------"
       else
-        puts "#{step} #{molecule}"
+        puts "#{$count} #{step} #{molecule}"
       end
     end
     return step if molecules.include?(target)
