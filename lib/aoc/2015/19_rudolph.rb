@@ -47,13 +47,13 @@ class AoC::AoC_2015
         end
       end
     end
-    pp molecules
+    # pp molecules
     molecules.size
   end
 
   def find_indices(str, substr, start)
     index = str.index(substr)
-    return nil if index.nil?
+    return [] if index.nil?
     [start+index, *find_indices(str[(index + substr.size)..], substr, start+index+substr.size)]
   end
 
