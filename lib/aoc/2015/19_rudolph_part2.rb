@@ -1,6 +1,6 @@
 require_relative '../aoc_2015'
 
-EXAMPLE_MOLECULE = 'HOH'
+EXAMPLE_MOLECULE = 'HOH' # 'HOHOHO'
 EXAMPLE = <<~EOF
   e => H
   e => O
@@ -17,7 +17,7 @@ class AoC::AoC_2015
     molecule = EXAMPLE_MOLECULE
     input = EXAMPLE
     replacements = parse_replacements(input)
-    binding.pry
+    find_shortest_path('e', molecule, replacements)
   end
 
   private
@@ -34,6 +34,22 @@ class AoC::AoC_2015
       end
     end
     replacements
+  end
+
+  def find_shortest_path(start, target, replacements)
+    #
+  end
+
+  def find_indices(str, substr, start)
+    index = str.index(substr)
+    return [] if index.nil?
+    [start+index, *find_indices(str[(index + substr.size)..], substr, start+index+substr.size)]
+  end
+
+  def replace_at(str, index, size, substr)
+    # puts "Replacing #{str} from #{index} to #{index+size-1} with #{substr}"
+    before = index.zero? ? '' : str[..index-1]
+    "#{before}#{substr}#{str[(index+size)..]}"
   end
 
   # def day_19_part_2
@@ -58,18 +74,6 @@ class AoC::AoC_2015
   #   end
   #   # pp molecules
   #   molecules.size
-  # end
-
-  # def find_indices(str, substr, start)
-  #   index = str.index(substr)
-  #   return [] if index.nil?
-  #   [start+index, *find_indices(str[(index + substr.size)..], substr, start+index+substr.size)]
-  # end
-
-  # def replace_at(str, index, size, substr)
-  #   # puts "Replacing #{str} from #{index} to #{index+size-1} with #{substr}"
-  #   before = index.zero? ? '' : str[..index-1]
-  #   "#{before}#{substr}#{str[(index+size)..]}"
   # end
 end
 
