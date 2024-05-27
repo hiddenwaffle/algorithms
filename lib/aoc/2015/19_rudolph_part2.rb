@@ -16,8 +16,8 @@ $count = 0
 
 class AoC::AoC_2015
   def day_19_part_2
-    molecule = EXAMPLE_MOLECULE
-    input = EXAMPLE
+    molecule = MOLECULE
+    input = INPUT
     replacements = parse_replacements(input)
     puts find_shortest_path('e', molecule, replacements)
   end
@@ -45,11 +45,12 @@ class AoC::AoC_2015
     loop do
       next_molecules = molecules.flat_map do |molecule|
         process(molecule, target, replacements)
-      end.compact.uniq
-      # TODO: Reject molecules that are larger than the target
+      end.compact.uniq.reject do |molecule|
+        molecule.size > target.size
+      end
       molecules = next_molecules
       step += 1
-      # puts "#{step} #{molecules}"
+      puts "#{step} - molecules.size: #{molecules.size}"
       break if molecules.include?(target)
     end
     step
