@@ -27,8 +27,8 @@ Theorem = Data.define(:pattern, :offset)
 
 class AoC::AoC_2015
   def day_19_part_2
-    # molecule = EXAMPLE_MOLECULE; input = EXAMPLE
-    molecule = MOLECULE; input = INPUT
+    molecule = EXAMPLE_MOLECULE; input = EXAMPLE
+    # molecule = MOLECULE; input = INPUT
     replacements = parse_replacements(input)
     theorems = calc_valid_theorems(replacements)
     puts find_shortest_path('e', molecule, replacements.invert, theorems)
@@ -54,7 +54,7 @@ class AoC::AoC_2015
         step += 1
         puts '---'
         puts "#{step} - molecules.size: #{molecules.size}"
-        # pp molecules
+        pp molecules
         break if molecules.include?(target)
       end
       step
@@ -68,7 +68,7 @@ class AoC::AoC_2015
         indicies.each do |index|
           molecule = replace_at(start, index, substr.size, to)
           next if molecule.size != 1 && molecule.include?(target)
-          next if has_irreplaceable?(molecule, theorems)
+          # next if has_irreplaceable?(molecule, theorems)
           molecules << molecule
         end
       end
