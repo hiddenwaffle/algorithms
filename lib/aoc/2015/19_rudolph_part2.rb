@@ -1,5 +1,7 @@
 require_relative '../aoc_2015'
 
+# TODO: This takes too long
+
 EXAMPLE_MOLECULE = 'HOHOHO'
 EXAMPLE = <<~EOF
   e => H
