@@ -13,4 +13,5 @@ class NumberTheory::GCD
   end
 end
 
-puts NumberTheory::GCD.new.gcd(300, 105)
+# puts NumberTheory::GCD.new.gcd(1234, 981)
+puts NumberTheory::GCD.new.gcd(100313, 34709)
