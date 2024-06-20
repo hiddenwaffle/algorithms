@@ -13,4 +13,4 @@ class NumberTheory::SieveOfEratosthenes
   end
 end
 
-pp NumberTheory::SieveOfEratosthenes.new.sieve(100)
+pp NumberTheory::SieveOfEratosthenes.new.sieve(1_000_000)
