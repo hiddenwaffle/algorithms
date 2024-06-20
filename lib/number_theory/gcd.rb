@@ -7,10 +7,10 @@ class NumberTheory::GCD
       r = a % b
       puts "#{a} = #{q}\u2219#{b} + #{r}"
       return b if r == 0
-      a = q*b
+      a = b
       b = r
     end
   end
 end
 
-puts NumberTheory::GCD.new.gcd(252, 198)
+puts NumberTheory::GCD.new.gcd(300, 105)
