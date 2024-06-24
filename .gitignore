@@ -5,6 +5,8 @@
 /doc/
 /pkg/
 /spec/reports/
-/tmp/
+
+/tmp/*
+!/tmp/.keep
 
 *.input
