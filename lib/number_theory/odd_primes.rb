@@ -13,11 +13,11 @@ class NumberTheory::OddPrimes
     four_n_plus_1 = 0
     four_n_plus_3 = 0
     CSV.open('tmp/odd_primes.csv', 'wb') do |csv|
-      (0..10_000_000_000).each do |n|
+      (0..50_000_000).each do |n|
         four_n_plus_1 += 1 if (4*n+1).prime?
         four_n_plus_3 += 1 if (4*n+3).prime?
         if n % 500_000 == 0
-          arr = [n, four_n_plus_1 - four_n_plus_3]
+          arr = [n, four_n_plus_3 - four_n_plus_1] # to get a positive value (most of the time?)
           pp arr
           csv << arr
         end
