@@ -17,4 +17,4 @@ end
 # puts NumberTheory::GCD.new.gcd(100313, 34709)
 # puts NumberTheory::GCD.new.gcd(252, 198)
 # puts NumberTheory::GCD.new.gcd(139, 91)
-puts NumberTheory::GCD.new.gcd(17, 13)
+puts NumberTheory::GCD.new.gcd(123_456_789, 10_000_000_001)
