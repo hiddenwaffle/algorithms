@@ -21,4 +21,5 @@ end
 # puts NumberTheory::InverseModulo.new.inverse_modulo(17, 19) # 9
 # puts NumberTheory::InverseModulo.new.inverse_modulo(35, 3) # 2
 # puts NumberTheory::InverseModulo.new.inverse_modulo(21, 5) # 1
-puts NumberTheory::InverseModulo.new.inverse_modulo(15, 7) # 1
+# puts NumberTheory::InverseModulo.new.inverse_modulo(15, 7) # 1
+puts NumberTheory::InverseModulo.new.inverse_modulo(20, 3) #
