@@ -13,4 +13,5 @@ class NumberTheory::InverseModulo
 end
 
 
-puts NumberTheory::InverseModulo.new.inverse_modulo(5, 7) # 3
+# puts NumberTheory::InverseModulo.new.inverse_modulo(5, 7) # 3
+puts NumberTheory::InverseModulo.new.inverse_modulo(9, 31)
