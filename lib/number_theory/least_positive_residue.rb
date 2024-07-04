@@ -11,12 +11,17 @@ class NumberTheory::LeastPositiveResidue
         nil
       else
         exp = 2.pow(index)
-        2.pow(exp).modulo(m)
+        factor = 2.pow(exp).modulo(m)
+        puts "2^#{exp} = #{factor} (mod #{m})"
+        factor
       end
     end.compact
     lpr = factors.reduce(&:*).modulo(m)
-    puts "2^{#{m}} = #{factors.join(' * ')} = #{lpr} (mod #{m})"
+    puts "2^{#{n}} = #{factors.join(' * ')} = #{lpr} (mod #{m})"
   end
 end
 
-puts NumberTheory::LeastPositiveResidue.new.do_it(61, 43)
+# NumberTheory::LeastPositiveResidue.new.do_it(61, 43) # 32 (mod 43)
+# NumberTheory::LeastPositiveResidue.new.do_it(32, 47) # 42 (mod 47)
+# NumberTheory::LeastPositiveResidue.new.do_it(47, 47) # 2 (mod 47)
+NumberTheory::LeastPositiveResidue.new.do_it(200, 47) # 18 (mod 47)
